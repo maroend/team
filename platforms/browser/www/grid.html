@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar (Android only) -->
+    <meta name="theme-color" content="#2196f3">
+
+    <title>Hello World</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+
+
+.center-text{
+    text-align: center;
+}
+
+
+.titulo{
+    color: blue;
+    background-color: brown;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+  
+    [class*="col-"] {
+       width: 100%;
+    }
+
+}
+
+
+
+
+</style>
+
+
+
+</head>
+
+<body>
+    
+
+<div class="row">
+
+       <div class="col-3">prueba</div>
+       <div class="col-3">prueba</div>
+       <div class="col-3">prueba</div>
+       <div class="col-3">prueba</div>
+
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-6">prueba</div>
+    <div class="col-6">prueba</div>
+    
+</div>
+
+<div class="row">
+
+    <div class="col-6">prueba</div>
+    <div class="col-6">prueba</div>
+    
+</div>
+
+
+<div class="row" style="margin-top: 100px;">
+
+    <div class="col-12 center-text titulo">Titulo</div>
+
+    
+</div>
+   
+
+</body>
+
+</html>

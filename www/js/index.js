@@ -265,12 +265,14 @@ var notificationFull = app7.notification.create({
   }
 
 
-
+  
 
   $$(document).on('page:init', '.page[data-name="login"]', function (e) {
      
 
-   
+    var calendarDefault = app7.calendar.create({
+      inputEl: '#demo-calendar-default',
+    });
     
           
   

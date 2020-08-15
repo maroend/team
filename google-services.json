@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "105878446507",
+    "firebase_url": "https://team-b1ec5.firebaseio.com",
+    "project_id": "team-b1ec5",
+    "storage_bucket": "team-b1ec5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105878446507:android:ad9b49c127f4a66aadb2ee",
+        "android_client_info": {
+          "package_name": "com.team.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105878446507-3dadnr3l0b7heohl53fpgqp6e6ui0o0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrk3DdYMk2Q5O9If071Z0D3S9e8hYGmg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105878446507-3dadnr3l0b7heohl53fpgqp6e6ui0o0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

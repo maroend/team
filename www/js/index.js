@@ -5,7 +5,120 @@ var $$ = Dom7;
 var idinmueble=0;
 var marca ="";
 var categoria ="";
+var token="";
+var platform = "";
 
+
+
+var app = {
+  // Application Constructor
+  initialize: function() {
+      this.bindEvents();
+  },
+  // Bind Event Listeners
+  //
+  // Bind any events that are required on startup. Common events are:
+  // 'load', 'deviceready', 'offline', and 'online'.
+  bindEvents: function() {
+      document.addEventListener('deviceready', this.onDeviceReady, false);
+  },
+  // deviceready Event Handler
+  //
+  // The scope of 'this' is the event. In order to call the 'receivedEvent'
+  // function, we must explicitly call 'app.receivedEvent(...);'
+  onDeviceReady: function() {
+      app.receivedEvent('deviceready');
+  },
+  // Update DOM on a Received Event
+  receivedEvent: function(id) {
+
+
+    platform = device.platform;
+
+    if(device.platform !="browser"){
+     
+        var push = PushNotification.init({
+              android:{
+
+              },ios:{
+                  alert:"true",
+                  badge:true,
+                  sound:'false'
+              }
+        });
+
+
+        push.on('registration', function (data) {
+         
+          alert(data.registrationId);
+          token = data.registrationId;
+          console.log(data.registrationId);
+          console.log(data.registrationType);
+      
+          });
+
+
+          push.on('notification', function (data) {
+
+              console.log(data.message);
+              console.log(data.title);
+              console.log(data.count);
+              console.log(data.sound);
+              console.log(data.image);
+              console.log(data.additionalData);
+
+          });
+
+        }
+
+  }
+};
+
+
+
+        function getToken(){
+
+
+          var token = token;
+          var platform = platform;
+
+          app7.request({
+            url: 'http://eleadex.online/team/api/settoken.php',
+            data:{token:token,platform:platform},
+            method:'POST',
+            crossDomain: true,
+            success:function(data){
+                 
+              app7.preloader.hide();
+      
+              var objson = JSON.parse(data);
+      
+              if(objson.data == "AUTENTICADO"){
+      
+                localStorage.setItem("team-login", "autenticado");
+                localStorage.setItem("usuario", usuario);
+      
+              mainView.router.navigate('/home/',{animate:true});
+              
+              }else{
+                console.log("respuesta appi:"+objson.data);
+                alert("USUARIO Y/O PASSWORD INCORRECTO");
+              }
+            
+            },
+            error:function(error){
+      
+              app7.preloader.hide();
+            
+            }
+            
+            });
+            
+
+          
+
+
+        }
 
 
 
@@ -252,13 +365,16 @@ function prueba(){
 
 
   $$(document).on('page:init', '.page[data-name="login"]', function (e) {
-     
+
+
+    if(platform !="browser"){
+        getToken();
+    }
+
     
     $$('#texto-login').html('Si ');
 
     getPiezas();
-
-
 
 
     var db = openDatabase('soccer','1.0','Jugadores',2 * 1024 * 1024);

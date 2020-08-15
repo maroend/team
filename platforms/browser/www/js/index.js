@@ -279,6 +279,11 @@ var notificationFull = app7.notification.create({
       },
       error:function(error){
 
+
+        alert(error.xhr);
+        alert(error.status);
+        alert(error.message);
+        
         app7.preloader.hide();
       
       }

@@ -19,19 +19,34 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html class="theme-dark">
 
 <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="GESDES Application">
+    <meta name="description" content="Aplicación Movil de diplomado">
+    
+  
     <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
 
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="shortcut icon" type="image/png" href="./img/abs.png">
+    <link rel="apple-touch-icon" href="./img/abs.png">
+    <link rel="apple-touch-startup-image" href="./img/abs.png">
+    <meta name="apple-mobile-web-app-title" content="Team">
+    <link rel="manifest" href="./manifest.json">
+
 
     <!-- Path to Framework7 Library Bundle CSS -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/framework7.bundle.min.css">
     <link rel="stylesheet" href="css/framework7-icons.css">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -51,8 +66,11 @@
               <p>Sede</p>
               <p>Zumpango</p>
           </div>
-          <p><a class="col button button-fill" onclick="Ingresar()">Ingresar <br/> boton</a></p>
-          <p><a class="panel-close" href="#">Close me</a></p>
+
+
+          
+          <p><a class="col button button-fill" onclick="Ingresar();">Ingresar <br/> boton</a></p>
+          <p><a class="panel-close" href="javascript:CerrarSesion();"  >Cerrar Sesión</a></p>
           <p><a class="panel-open" href="#" data-panel=".panel-right-1">Open Right Panel</a></p>
         </div>
       </div>
@@ -71,7 +89,7 @@
             <div class="page-content">
 
                 
-                <!--<img src="img/logo.jpg" height="50%" />--> 
+                <img src="img/logo.jpg" class="center-image" height="50%" />
 
                 <div class="block">
 
@@ -93,8 +111,11 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script src="script.js"></script>
     <script type="text/javascript">
-        //app.initialize();
+
+
+        app.initialize();
 
         showSplashScreen();
 

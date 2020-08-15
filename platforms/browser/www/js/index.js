@@ -1,40 +1,51 @@
 var $$ = Dom7;
 
-
 //MuestraMensaje();
 
 var idinmueble=0;
+var marca ="";
+var categoria ="";
+
+
 
 var app = {
-    /* Application Constructor
+    // Application Constructor
     initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+                var push = PushNotification.init({
+                      android:{
 
-        console.log('Received Event: ' + id);
-    }*/
+                      },ios:{
+                          alert:"true",
+                          badge:true,
+                          sound:'false'
+                      }
+                });
+
+
+                push.on('registration', function (data) {
+                
+                  alert(data.registrationId);
+                  console.log(data.registrationId);
+                  console.log(data.registrationType);
+
+                  });
+
+
+                  push.on('notification', function (data) {
+
+                      console.log(data.message);
+                      console.log(data.title);
+                      console.log(data.count);
+                      console.log(data.sound);
+                      console.log(data.image);
+                      console.log(data.additionalData);
+
+                  });
+
+
+       
+    }
 };
 
 
@@ -63,6 +74,7 @@ function CerrarSesion()
   //checkConnection();
 
   localStorage.setItem("team-login", "false");
+  localStorage.setItem("usuario", "");
 
   mainView.router.navigate('/login/',{animate:true});
 
@@ -180,6 +192,7 @@ var notificationFull = app7.notification.create({
         if(objson.data == "AUTENTICADO"){
 
           localStorage.setItem("team-login", "autenticado");
+          localStorage.setItem("usuario", usuario);
 
         mainView.router.navigate('/home/',{animate:true});
         
@@ -256,7 +269,10 @@ var notificationFull = app7.notification.create({
   }
 
 
+function prueba(){
 
+  alert("cambio");
+}
 
 
   function MuestraMensaje(){
@@ -266,11 +282,72 @@ var notificationFull = app7.notification.create({
 
 
 
+  function Pruebadeshabilita(){
+
+
+
+     $$('#miboton').attr('class','col button button-fill');
+     
+
+  }
+
 
   $$(document).on('page:init', '.page[data-name="login"]', function (e) {
      
+    
+    $$('#texto-login').html('Si ');
 
-   
+    getPiezas();
+
+
+
+
+    var db = openDatabase('soccer','1.0','Jugadores',2 * 1024 * 1024);
+
+
+    db.transaction(function (tx){
+         tx.executeSql('CREATE TABLE IF NOT EXISTS JUGADORES (id,nombre,apellidos)');
+         
+    },function(err){
+
+         console.log(err);
+    });
+
+
+
+    db.transaction(function (tx){
+      tx.executeSql('INSERT INTO JUGADORES (id,nombre,apellidos) VALUES(1,"Joaquin","Garcia")');
+
+    },function (err){
+         console.log('Error al insertar');
+    });
+
+
+
+    db.transaction(function (tx){
+       
+      var sql = 'SELECT * FROM JUGADORES WHERE id = 1';
+
+      tx.executeSql(sql,[],function(tx,results){
+                     
+           var registros = results.rows.length, i;
+          
+           for(i=0; i<registros; i++){
+
+               console.log(results.rows.item(i).nombre);
+
+           }
+
+
+      });
+
+    });
+
+    
+
+    var calendarDefault = app7.calendar.create({
+      inputEl: '#demo-calendar-default',
+    });
     
           
   
@@ -278,10 +355,9 @@ var notificationFull = app7.notification.create({
 
 
 
-
   $$(document).on('page:init', '.page[data-name="home"]', function (e) {
 
-     // alert("alerta");
+
 
     
      //app7.panel.enableSwipe('left');
@@ -302,10 +378,10 @@ var notificationFull = app7.notification.create({
   
 
     app7.preloader.show('blue');
-
+    
 
     app7.request({
-      url: 'http://localhost/team/api/inmueble.php',
+      url: 'http://eleadex.online/team/api/inmueble.php',
       data:{id:idinmueble},
       method:'POST',
       crossDomain: true,
@@ -339,15 +415,102 @@ var notificationFull = app7.notification.create({
       
       });
 
-    
-
-      
-
 
 });
 
 
 
+
+
+function getPiezas(){
+
+  app7.preloader.show('blue');
+
+
+  app7.request({
+    url: 'http://localhost/team/api/slider.php',
+    data:{},
+    method:'POST',
+    crossDomain: true,
+    success:function(data){
+         
+      app7.preloader.hide();
+
+      var objson = JSON.parse(data);
+
+      var pieza= "";
+
+      
+
+      for(x in objson.data){
+
+           console.log(objson.data[x].titulo);
+
+           pieza = '<option value="'+objson.data[x].id+'"> '+objson.data[x].titulo+'</option>';
+
+           $$('#piezas').append(pieza);
+
+      }
+
+      
+    
+    },
+    error:function(error){
+
+      app7.preloader.hide();
+    
+    }
+    
+    });
+
+
+
+
+}
+
+
+
+function Salvar(){
+
+     var codigo =  $$('#piezas-1').val();
+     var inspeccionadas =  $$('#piezas-inspeccionadas').val();
+     var ok =  $$('#piezas-ok').val();
+     
+
+
+
+     app7.request({
+      url: 'http://localhost/team/api/guardar.php',
+      data:{codigo:codigo,inspe},
+      method:'POST',
+      crossDomain: true,
+      success:function(data){
+           
+        app7.preloader.hide();
+  
+        var objson = JSON.parse(data);
+  
+    
+  
+        
+  
+    
+  
+        
+      
+      },
+      error:function(error){
+  
+        app7.preloader.hide();
+      
+      }
+      
+      });
+     
+
+
+
+}
 
 
 function getSlider(){
@@ -372,9 +535,6 @@ function getSlider(){
           swiper.removeAllSlides();
 
           for(x in objson.data){
-                
-               
-
 
                var slide ='<div class="swiper-slide"><img src="'+objson.data[x].imagen+'" /></div>';
 
@@ -409,6 +569,69 @@ function showMenu(){
 }
 
 
+
+function ValidaUsuario(){
+     
+
+  var usuario = localStorage.getItem('usuario');
+
+  if(usuario!=""){
+    return true;
+  }else{
+    return false;
+  }
+
+
+}
+
+
+
+function Favorito(id){
+
+
+   if(ValidaUsuario()){
+   
+
+    var inmueble = id;
+    var usuario = localStorage.getItem('usuario');
+
+
+    app7.request({
+      url: 'http://localhost/team/api/setfavorito.php',
+      data:{usuario:usuario,inmueble:inmueble},
+      method:'POST',
+      crossDomain: true,
+      success:function(resultado){
+           
+        var objson = JSON.parse(resultado);
+
+        if(objson.data=="ELIMINADO"){
+                //sin color f7-icons
+               
+                $$('#favorito-'+id).attr('class','f7-icons');
+
+        }else{
+           //color en rojo
+             $$('#favorito-'+id).attr('class','f7-icons red');
+        }
+      
+      },
+      error:function(error){
+
+     
+      }
+      
+      });
+
+    }else{
+
+      alert("Es necesario registrarse");
+    }
+
+
+}
+
+
 function getInmuebles(){
 
 
@@ -423,23 +646,19 @@ function getInmuebles(){
         data:{},
         method:'POST',
         crossDomain: true,
-        success:function(data){
+        success:function(resultado){
              
           app7.preloader.hide();
   
-          var objson = JSON.parse(data);
+          var inmuebles = JSON.parse(resultado);
 
           var inmueble= "";
-
          
-
-          for(x in objson.data){
+          for(x in inmuebles.data){
                 
-                console.log(objson.data[x].titulo);
+                console.log(inmuebles.data[x].titulo);
 
-
-
-                inmueble =' <div class="card demo-card-header-pic"><div style="background-image:url('+objson.data[x].imagen1+')" class="card-header align-items-flex-end">'+objson.data[x].titulo+'</div><div class="card-content card-content-padding"><p class="date">Posted on January 21, 2015</p><p>'+objson.data[x].titulo+'</p></div><div class="card-footer"><a href="#" class="link">'+objson.data[x].precio+'</a><a href="javascript:verinmueble('+objson.data[x].id+')" class="link">Ver más</a></div></div>';
+                inmueble =' <div class="card demo-card-header-pic"><div style="background-image:url('+inmuebles.data[x].imagen1+')" class="card-header align-items-flex-end">'+inmuebles.data[x].titulo+'</div><div class="card-content card-content-padding"><p class="date">Posted on January 21, 2015</p><p>'+inmuebles.data[x].titulo+'</p></div><div class="card-footer"><a href="#" class="link">'+inmuebles.data[x].precio+'</a> <i class="f7-icons" id="favorito-'+inmuebles.data[x].id+'" onClick="Favorito('+inmuebles.data[x].id+')">suit_heart</i> <a href="javascript:verinmueble('+inmuebles.data[x].id+')" class="link">Ver más</a></div></div>';
 
                 $$('#inmuebles').append(inmueble);
 
@@ -450,6 +669,7 @@ function getInmuebles(){
         },
         error:function(error){
   
+
           app7.preloader.hide();
         
         }

@@ -79,17 +79,12 @@ var app = {
 
 
 
-        function getToken(token,platform){
 
-       
+        function getToken(token,platform){
 
           var token = token;
           var platform = platform;
 
-
-          alert("TOKEN:"+token);
-
-          alert("PLATFORM:"+platform);
 
           app7.request({
             url: 'http://eleadex.online/team/api/settoken.php',
@@ -97,38 +92,15 @@ var app = {
             method:'POST',
             crossDomain: true,
             success:function(data){
-                 
-              app7.preloader.hide();
-      
-              var objson = JSON.parse(data);
-      
-              if(objson.data == "AUTENTICADO"){
-      
-                localStorage.setItem("team-login", "autenticado");
-                localStorage.setItem("usuario", usuario);
-      
-              mainView.router.navigate('/home/',{animate:true});
-              
-              }else{
-                console.log("respuesta appi:"+objson.data);
-                alert("USUARIO Y/O PASSWORD INCORRECTO");
-              }
+           
             
             },
             error:function(error){
 
-             
-      
-              app7.preloader.hide();
-            
             }
             
             });
-            
-
           
-
-
         }
 
 

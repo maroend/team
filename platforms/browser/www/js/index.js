@@ -78,6 +78,7 @@ var app = {
 
         function getToken(){
 
+          alert("obtenertoken");
 
           var token = token;
           var platform = platform;
@@ -107,6 +108,8 @@ var app = {
             
             },
             error:function(error){
+
+              alert(error);
       
               app7.preloader.hide();
             

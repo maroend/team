@@ -50,7 +50,10 @@ var app = {
 
         push.on('registration', function (data) {
          
-          alert(data.registrationId);
+          
+
+          getToken(data.registrationId,device.platform);
+          
           token = data.registrationId;
           console.log(data.registrationId);
           console.log(data.registrationType);
@@ -76,7 +79,7 @@ var app = {
 
 
 
-        function getToken(){
+        function getToken(token,platform){
 
        
 
@@ -114,7 +117,7 @@ var app = {
             },
             error:function(error){
 
-              alert(error.message);
+             
       
               app7.preloader.hide();
             
@@ -380,9 +383,6 @@ function prueba(){
   $$(document).on('page:init', '.page[data-name="login"]', function (e) {
 
 
-    if(platform !="browser"){
-        getToken();
-    }
 
     
     $$('#texto-login').html('Si ');

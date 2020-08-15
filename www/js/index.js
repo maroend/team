@@ -254,7 +254,7 @@ var notificationFull = app7.notification.create({
     app7.preloader.show('blue');
 
     app7.request({
-      url: 'http://localhost/team/api/login.php',
+      url: 'http://eleadex.online/team/api/login.php',
       data:{username:usuario,password:password},
       method:'POST',
       crossDomain: true,

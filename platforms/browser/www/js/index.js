@@ -109,7 +109,7 @@ var app = {
             },
             error:function(error){
 
-              alert(error);
+              alert(error.message);
       
               app7.preloader.hide();
             

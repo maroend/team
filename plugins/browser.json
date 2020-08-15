@@ -36,6 +36,12 @@
     },
     "cordova-plugin-vibration": {
       "PACKAGE_NAME": "com.team.app"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.team.app"
+    },
+    "phonegap-plugin-push": {
+      "PACKAGE_NAME": "com.team.app"
     }
   },
   "dependent_plugins": {

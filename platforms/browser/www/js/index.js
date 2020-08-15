@@ -78,10 +78,15 @@ var app = {
 
         function getToken(){
 
-          alert("obtenertoken");
+       
 
           var token = token;
           var platform = platform;
+
+
+          alert("TOKEN:"+token);
+
+          alert("PLATFORM:"+platform);
 
           app7.request({
             url: 'http://eleadex.online/team/api/settoken.php',
@@ -283,7 +288,7 @@ var notificationFull = app7.notification.create({
         alert(error.xhr);
         alert(error.status);
         alert(error.message);
-        
+
         app7.preloader.hide();
       
       }
